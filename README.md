@@ -25,6 +25,7 @@ By abstracting away local toolchain discrepancies (Rust versions, WebAssembly ta
 - **Pre-Configured Soroban WASM Target**: Comes out-of-the-box with `wasm32v1-none` configured for modern Soroban smart contract compilation.
 - **Latest Stellar CLI**: Ships with the official, optimized `stellar-cli` binary pre-compiled and placed in the system PATH.
 - **Docker Compose Orchestration**: Ready-to-use `docker-compose.yml` for interactive contract builds with persistent cargo caching.
+- **One-Click Dev Containers & Codespaces**: Pre-configured `.devcontainer/devcontainer.json` with Rust Analyzer, Clippy, Even Better TOML, Crates, and CodeLLDB preloaded.
 - **Local RPC Ready**: Includes scaffolding for running a local Stellar testnet or standalone node via `stellar/quickstart`.
 - **Prepared for Drips Stellar Wave**: Seeded with beginner, intermediate, and advanced issues for open-source contributors.
 
@@ -95,6 +96,37 @@ docker compose run --rm soroban-builder cargo build --target wasm32v1-none --rel
 ```
 
 The resulting `.wasm` binary will be available in `./target/wasm32v1-none/release/`.
+
+---
+
+## 💻 Develop with Dev Containers / Codespaces
+
+This repository ships with a full [`.devcontainer/devcontainer.json`](.devcontainer/devcontainer.json) configuration for **Visual Studio Code (Dev Containers)** and **GitHub Codespaces**.
+
+### Option 1: Launch in GitHub Codespaces
+
+1. Navigate to the repository on GitHub and click the **Code** button.
+2. Switch to the **Codespaces** tab and click **Create codespace on main**.
+3. Codespaces will build the container, mount `/workspace`, install the preloaded Rust/Soroban extensions, forward port `8000`, and run the `postCreateCommand` verification hook.
+
+### Option 2: Open in VS Code Dev Containers
+
+1. Install the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) in Visual Studio Code.
+2. Clone and open the repository:
+   ```bash
+   git clone https://github.com/CloudNativeIlorin/stellar-dev-containers.git
+   code stellar-dev-containers
+   ```
+3. Open the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`) and run **Dev Containers: Reopen in Container**.
+4. Once built, the integrated terminal opens directly in `/workspace` with `stellar`, `cargo`, and the `wasm32v1-none` target ready on `PATH`.
+
+### Preloaded Extensions & Settings
+
+- `rust-lang.rust-analyzer` (configured with `"rust-analyzer.check.command": "clippy"`)
+- `tamasfe.even-better-toml` (TOML syntax & `Cargo.toml` schema support)
+- `serayuzgur.crates` (Cargo dependency version management)
+- `vadimcn.vscode-lldb` (LLDB native debugger)
+- `"editor.formatOnSave": true` and automatic port forwarding for port `8000` (Stellar RPC / Horizon)
 
 ---
 
