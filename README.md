@@ -98,6 +98,47 @@ The resulting `.wasm` binary will be available in `./target/wasm32v1-none/releas
 
 ---
 
+## 🌐 Local Stellar & Soroban RPC Node (`stellar/quickstart`)
+
+`docker-compose.yml` integrates the official `stellar/quickstart:latest` image on a shared internal bridge network (`stellar-net`) with persistent state (`stellar-data`) and Soroban RPC exposed on port `8000`.
+
+### 1. Start the Local Standalone RPC Node
+
+```bash
+# Start the local standalone node (default or --profile local)
+docker compose up -d stellar-quickstart
+
+# Or switch to public Testnet mode using the testnet profile:
+docker compose --profile testnet up -d stellar-quickstart-testnet
+```
+
+Once running, Soroban RPC is reachable:
+- **From your host machine**: `http://localhost:8000/soroban/rpc`
+- **From `soroban-builder` (via `stellar-net`)**: `http://stellar-quickstart:8000/soroban/rpc`
+
+### 2. Register the Local Network with `stellar-cli`
+
+Configure `stellar-cli` inside `soroban-builder` to point to the `stellar-quickstart` container:
+
+```bash
+docker compose run --rm soroban-builder \
+  stellar network add \
+  --rpc-url http://stellar-quickstart:8000/soroban/rpc \
+  --network-passphrase "Standalone Network ; February 2017" \
+  local
+```
+
+Or if running `stellar-cli` directly on your host machine:
+
+```bash
+stellar network add \
+  --rpc-url http://localhost:8000/soroban/rpc \
+  --network-passphrase "Standalone Network ; February 2017" \
+  local
+```
+
+---
+
 ## 🌊 Drips Stellar Wave Program
 
 This repository is submitted to the **Drips Stellar Wave Program** to foster open-source contributions across Africa and the global developer ecosystem.
