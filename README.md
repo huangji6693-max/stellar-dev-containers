@@ -47,16 +47,21 @@ git clone https://github.com/CloudNativeIlorin/stellar-dev-containers.git
 cd stellar-dev-containers
 ```
 
-### 2. Build the Container Image
+### 2. Pull or Build the Container Image
 
-Using Docker Compose:
+Pull the pre-built multi-architecture (`linux/amd64` & `linux/arm64`) image directly from GitHub Container Registry (GHCR):
+```bash
+docker pull ghcr.io/cloudnativeilorin/stellar-dev-containers:latest
+```
+
+Or build locally using Docker Compose:
 ```bash
 docker compose build
 ```
 
 Or using standard Docker CLI:
 ```bash
-docker build -t stellar-dev-container .
+docker build -t ghcr.io/cloudnativeilorin/stellar-dev-containers:latest .
 ```
 
 ### 3. Verify the Installation
@@ -67,8 +72,8 @@ Confirm that `stellar-cli` is properly configured inside the container:
 # Using Docker Compose
 docker compose run --rm soroban-builder stellar --version
 
-# Using Docker CLI directly
-docker run --rm stellar-dev-container stellar --version
+# Using the pre-built GHCR image directly
+docker run --rm ghcr.io/cloudnativeilorin/stellar-dev-containers:latest stellar --version
 ```
 
 Output should display the active Stellar CLI version (e.g., `stellar 22.x.x`).

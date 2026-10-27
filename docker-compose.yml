@@ -8,7 +8,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: cloudnativeilorin/stellar-dev-container:latest
+    image: ghcr.io/cloudnativeilorin/stellar-dev-containers:latest
     container_name: soroban-builder
     volumes:
       - ./:/workspace

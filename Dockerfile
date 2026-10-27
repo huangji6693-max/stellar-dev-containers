@@ -20,8 +20,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-# Install the official Stellar CLI (locked version with optimizations)
-RUN cargo install --locked stellar-cli --features opt
+# Install the official Stellar CLI (locked version; optimization enabled by default in stellar-cli >= 22)
+RUN cargo install --locked stellar-cli
 
 # -------------------------------------------------------------------------
 # Stage 2: Runtime & Development Environment
